@@ -1,9 +1,8 @@
 //============================================================================
 // Name        : krb5client.cpp
 // Author      : odity
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Version     : 0.1
+// Copyright   : GPL3
 //============================================================================
 
 #include <iostream>
@@ -20,7 +19,6 @@
 #include <netdb.h>
 #include <krb5.h>
 #include <errno.h>
-//#include <zephyr/zephyr.h>
 #include <signal.h>
 #include <curses.h>
 #include <sys/wait.h>
@@ -45,19 +43,11 @@ bool ts_after(krb5_timestamp a, krb5_timestamp b)
 }
 int main(int argc, char **argv) {
 	char *execstr = NULL;
-	int ret, writebufflen;
+	int ret;
 	krb5_context context;
 	krb5_ccache ccache;
 	char *my_principal_string;
-	krb5_address local_address, foreign_address;
-	struct sockaddr_in faddr, laddr;
-	size_t laddrlen;
-	WINDOW *sendwin = NULL, *receivewin = NULL, *sepwin = NULL;
-	fd_set fdset;
-	struct sigaction sigact;
-	char writebuff[1024], startupmsg[2048];
 	krb5_principal my_principal;
-	krb5_auth_context auth_context;
 	int opt;
 	extern char *optarg;
 	extern int optind;
@@ -77,7 +67,7 @@ int main(int argc, char **argv) {
 	    }
 	  }
 
-	putenv("KRB5_KTNAME=/dev/null");	/* kerberos V can kiss my pasty white ass */
+	putenv("KRB5_KTNAME=/dev/null");	
 	ret = krb5_init_context(&context);
 	if (ret){
 		cout<<"Error: krb5_init_context";
